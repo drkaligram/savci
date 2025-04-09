@@ -1,0 +1,24 @@
+# config.yml
+
+backend:
+  name: github # veya gitlab, bitbucket
+  repo: drkaligram/savci # <<< GÖRSELDEN ALINAN BİLGİLERLE GÜNCELLENDİ
+  branch: main # Görseldeki branch adı ile aynı, değiştirilmedi
+
+# Medya (Resim vb.) yüklemeleri için ayarlar
+# Resimler sitenizdeki 'uploads' klasörüne kaydedilecek
+media_folder: "uploads" # Fiziksel olarak resimlerin kaydedileceği yer
+public_folder: "/uploads" # Sitede resimlere erişilecek URL yolu
+
+collections:
+  - name: "blog" # Koleksiyonun (içerik türünün) adı
+    label: "Blog Yazıları" # Yönetim panelinde görünecek etiket
+    folder: "_posts" # Yazıların hangi klasöre kaydedileceği
+    create: true # Yeni yazı eklemeye izin ver
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Dosya adlarının formatı (örn: 2025-04-09-yazi-basligi.md)
+    fields: # Yazı içindeki alanlar
+      - { label: "Başlık", name: "title", widget: "string" }
+      - { label: "Yayın Tarihi", name: "date", widget: "datetime" }
+      - { label: "Yazı İçeriği", name: "body", widget: "markdown" }
+      # İsterseniz öne çıkan görsel gibi alanlar da ekleyebilirsiniz:
+      # - { label: "Öne Çıkan Görsel", name: "thumbnail", widget: "image", required: false }
