@@ -3,28 +3,348 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yazar Adı Soyadı - Ana Sayfa</title> <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <title>Dayımın Edebi Köşesi</title>
+    <style>
+        /* --- Genel Stiller ve Resetleme --- */
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Lato:wght@400;700&display=swap');
 
-    <link rel="stylesheet" href="style.css">
+        :root {
+            --ana-renk: #f4f1ea; /* Açık krem */
+            --ikincil-renk: #5a4a3a; /* Koyu kahve tonu */
+            --vurgu-renk: #a88b60; /* Altın/Bronz tonu */
+            --metin-renk: #3d3d3d; /* Koyu gri metin */
+            --golge-renk: rgba(0, 0, 0, 0.1);
+            --kenarlik-renk: #dcd1c0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Merriweather', serif; /* Edebi his için serif font */
+            line-height: 1.7;
+            background-color: var(--ana-renk);
+            color: var(--metin-renk);
+            overflow-x: hidden; /* Yatay kaydırmayı engelle */
+            transition: background-color 0.5s ease; /* Tema değişimi için (opsiyonel) */
+        }
+
+        /* --- Ana Layout --- */
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 20px;
+            display: flex;
+            gap: 30px;
+        }
+
+        main {
+            flex: 3; /* Ana içerik daha geniş */
+        }
+
+        aside {
+            flex: 1; /* Kenar çubuğu daha dar */
+            position: sticky; /* Kenar çubuğunu kaydırırken sabitle */
+            top: 30px; /* Yukarıdan boşluk */
+            align-self: flex-start; /* Kendini yukarı hizala */
+        }
+
+        /* --- Başlık --- */
+        header {
+            background-color: var(--ikincil-renk);
+            color: var(--ana-renk);
+            padding: 25px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'Lato', sans-serif; /* Başlık için daha modern bir font */
+            letter-spacing: 2px;
+            border-bottom: 5px solid var(--vurgu-renk);
+            box-shadow: 0 4px 8px var(--golge-renk);
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* --- Kenar Çubuğu (Profil) --- */
+        #profil {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px var(--golge-renk);
+            text-align: center;
+            border: 1px solid var(--kenarlik-renk);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #profil:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        #profil img#profil-foto {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Yuvarlak fotoğraf */
+            object-fit: cover; /* Fotoğrafı kırpıp sığdır */
+            border: 5px solid var(--vurgu-renk);
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px var(--golge-renk);
+            transition: transform 0.4s ease;
+        }
+
+        #profil img#profil-foto:hover {
+            transform: scale(1.08) rotate(3deg); /* Hafif büyütme ve döndürme efekti */
+        }
+
+        #profil h3 {
+            font-family: 'Lato', sans-serif;
+            color: var(--ikincil-renk);
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+        #profil p {
+            font-size: 0.95em;
+            color: #555;
+            font-style: italic; /* Biyografi için italik */
+        }
+
+        /* --- Blog Yazıları --- */
+        .blog-yazisi {
+            background-color: #ffffff;
+            margin-bottom: 40px;
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px var(--golge-renk);
+            border-left: 7px solid var(--vurgu-renk); /* Sol kenarda vurgu */
+            opacity: 0; /* Başlangıçta görünmez (JS ile animasyon için) */
+            transform: translateY(30px); /* Başlangıçta aşağıda (JS ile animasyon için) */
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            border: 1px solid var(--kenarlik-renk);
+        }
+
+        /* JS ile eklenecek görünürlük sınıfı */
+        .blog-yazisi.gorunur {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .blog-yazisi h2 {
+            font-family: 'Merriweather', serif;
+            color: var(--ikincil-renk);
+            margin-bottom: 10px;
+            font-size: 1.8em;
+            border-bottom: 1px solid var(--kenarlik-renk);
+            padding-bottom: 10px;
+        }
+
+        .blog-yazisi .tarih {
+            font-family: 'Lato', sans-serif;
+            color: #777;
+            font-size: 0.85em;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .blog-yazisi .icerik p {
+            margin-bottom: 1.2em; /* Paragraflar arası boşluk */
+            text-indent: 1.5em; /* Paragraf başı girintisi */
+        }
+
+         .blog-yazisi .icerik p::first-letter { /* Paragrafın ilk harfini büyütme */
+            font-size: 1.5em;
+            color: var(--vurgu-renk);
+            font-weight: bold;
+            margin-right: 0.05em;
+            float: left; /* Metnin etrafında akmasını sağlar */
+            line-height: 1;
+            padding-right: 5px;
+            padding-top: 3px;
+         }
+
+        .blog-yazisi a {
+            color: var(--vurgu-renk);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .blog-yazisi a:hover {
+            color: var(--ikincil-renk);
+            text-decoration: underline;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #777;
+            border-top: 1px dashed var(--kenarlik-renk);
+            font-family: 'Lato', sans-serif;
+        }
+
+        /* --- Duyarlılık (Responsive Tasarım) --- */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column; /* Küçük ekranlarda alt alta diz */
+                margin-top: 20px;
+            }
+
+            aside {
+                position: static; /* Sabitlemeyi kaldır */
+                width: 80%;
+                margin: 0 auto 30px auto; /* Ortala ve boşluk bırak */
+            }
+
+            main {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .blog-yazisi {
+                padding: 25px;
+            }
+
+            .blog-yazisi h2 {
+                font-size: 1.5em;
+            }
+
+            #profil {
+                width: 95%;
+            }
+        }
+
+        /* --- Ekstra Görsel Efektler --- */
+        ::selection { /* Metin seçildiğindeki renk */
+            background-color: var(--vurgu-renk);
+            color: white;
+        }
+
+        /* Kaydırma çubuğu stilizasyonu (Webkit tarayıcılar için) */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--ana-renk);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--vurgu-renk);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ikincil-renk);
+        }
+
+    </style>
 </head>
 <body>
-    <header class="container">
-         <h1>Yazar Adı Soyadı</h1> <nav>
-             <a href="index.html">Ana Sayfa</a>
-             <a href="blog.html">Blog</a>
-             </nav>
-    </header>
 
-    <main class="container">
-        <h2>Hoş Geldiniz!</h2>
-        <p>Bu alana dayınızla ilgili kısa bir tanıtım, en son çıkan kitabı veya bir karşılama mesajı yazabilirsiniz.</p>
-        <p>Örnek olarak, lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </main>
+    <header>
+        <h1>Dayımın Edebi Köşesi</h1>
+        </header>
 
-    <footer class="container">
-        <p>&copy; 2025 Yazar Adı Soyadı</p> </footer>
+    <div class="container">
+        <aside id="profil">
+            <img id="profil-foto" src="https://via.placeholder.com/150" alt="Profil Fotoğrafı">
+            <h3>Yazar Hakkında</h3>
+            <p>Buraya dayınız hakkında kısa bir tanıtım yazısı veya biyografi eklenebilir. Edebiyatla olan ilişkisi, ilgi alanları vb.</p>
+            </aside>
 
-    </body>
+        <main id="yazilar">
+            <article class="blog-yazisi">
+                <h2>İlk Yazı: Edebiyatın Büyüsü</h2>
+                <p class="tarih">9 Nisan 2025</p>
+                <div class="icerik">
+                    <p>Edebiyat, kelimelerin dans ettiği, duyguların hayat bulduğu büyülü bir dünyadır. Bu dünyada gezinmek, farklı karakterlerle tanışmak, bilinmeyen diyarlara yolculuk etmek ruhumuzu besler. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>Her kitap yeni bir maceradır, her şiir kalbe dokunan bir fısıltıdır. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Daha fazla bilgi için <a href="#">bu linke</a> tıklayabilirsiniz.</p>
+                </div>
+                </article>
+            <article class="blog-yazisi">
+                <h2>Kitapların Sessiz Dünyası</h2>
+                <p class="tarih">1 Nisan 2025</p>
+                <div class="icerik">
+                    <p>Kitap sayfaları arasında kaybolmak, zamanın nasıl geçtiğini unutmak eşsiz bir deneyimdir. Integer vitae justo eget magna fermentum iaculis eu non diam. Curabitur vitae nunc sed velit dignissim sodales ut eu sem. </p>
+                    <p>Suspendisse potenti nullam ac tortor vitae purus faucibus. Nunc consequat interdum varius sit amet mattis vulputate. Massa tincidunt dui ut ornare lectus sit. Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt tortor.</p>
+                </div>
+                </article>
+            </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 - Dayımın Edebi Köşesi | Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script>
+        // --- Gelişmiş JavaScript Kodları ---
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // 1. Scroll ile Blog Yazılarını Fade-in Efekti
+            const blogYazilari = document.querySelectorAll('.blog-yazisi');
+
+            const observerOptions = {
+                root: null, // viewport'u referans al
+                rootMargin: '0px',
+                threshold: 0.1 // %10'u göründüğünde tetikle
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('gorunur');
+                        // İsteğe bağlı: Bir kere göründükten sonra observe etmeyi bırak
+                        // observer.unobserve(entry.target);
+                    }
+                    // İsteğe bağlı: Ekrandan çıkınca tekrar gizlemek için:
+                    // else {
+                    //     entry.target.classList.remove('gorunur');
+                    // }
+                });
+            }, observerOptions);
+
+            blogYazilari.forEach(yazi => {
+                observer.observe(yazi);
+            });
+
+            // 2. Profil Fotoğrafına Basit Animasyon (CSS'de zaten var ama JS ile de yapılabilir)
+            const profilFoto = document.getElementById('profil-foto');
+            if (profilFoto) {
+                profilFoto.addEventListener('mouseenter', () => {
+                    // CSS'deki hover efekti yeterli, burası örnek amaçlıdır.
+                    // İstenirse buraya daha karmaşık animasyonlar eklenebilir.
+                    // console.log("Profil fotosu üzerine gelindi.");
+                });
+                profilFoto.addEventListener('mouseleave', () => {
+                    // console.log("Profil fotosundan çıkıldı.");
+                });
+            }
+
+            // 3. (Opsiyonel) Gelecekte Eklenebilecekler:
+            //    - Tema Değiştirme Butonu (Açık/Koyu Mod)
+            //    - Sayfa Başına Dön Butonu
+            //    - Yazı Filtreleme/Arama özelliği
+
+            console.log("Edebi Blog Scriptleri Yüklendi!");
+
+        });
+    </script>
+
+</body>
 </html>
