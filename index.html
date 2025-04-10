@@ -3,348 +3,434 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dayımın Edebi Köşesi</title>
+    <title>TUS Mikrobiyoloji & İmmünoloji Deneme Sınavı</title>
     <style>
-        /* --- Genel Stiller ve Resetleme --- */
-        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Lato:wght@400;700&display=swap');
-
-        :root {
-            --ana-renk: #f4f1ea; /* Açık krem */
-            --ikincil-renk: #5a4a3a; /* Koyu kahve tonu */
-            --vurgu-renk: #a88b60; /* Altın/Bronz tonu */
-            --metin-renk: #3d3d3d; /* Koyu gri metin */
-            --golge-renk: rgba(0, 0, 0, 0.1);
-            --kenarlik-renk: #dcd1c0;
-        }
-
-        * {
-            box-sizing: border-box;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f4; /* Ekran görünümü için */
+            color: #333;
         }
 
-        body {
-            font-family: 'Merriweather', serif; /* Edebi his için serif font */
-            line-height: 1.7;
-            background-color: var(--ana-renk);
-            color: var(--metin-renk);
-            overflow-x: hidden; /* Yatay kaydırmayı engelle */
-            transition: background-color 0.5s ease; /* Tema değişimi için (opsiyonel) */
+        .booklet-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Ekran görünümü için */
         }
 
-        /* --- Ana Layout --- */
-        .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 20px;
-            display: flex;
-            gap: 30px;
-        }
-
-        main {
-            flex: 3; /* Ana içerik daha geniş */
-        }
-
-        aside {
-            flex: 1; /* Kenar çubuğu daha dar */
-            position: sticky; /* Kenar çubuğunu kaydırırken sabitle */
-            top: 30px; /* Yukarıdan boşluk */
-            align-self: flex-start; /* Kendini yukarı hizala */
-        }
-
-        /* --- Başlık --- */
-        header {
-            background-color: var(--ikincil-renk);
-            color: var(--ana-renk);
-            padding: 25px 0;
+        h1, h2 {
             text-align: center;
-            margin-bottom: 40px;
-            font-family: 'Lato', sans-serif; /* Başlık için daha modern bir font */
-            letter-spacing: 2px;
-            border-bottom: 5px solid var(--vurgu-renk);
-            box-shadow: 0 4px 8px var(--golge-renk);
-        }
-
-        header h1 {
-            font-size: 2.8em;
-            font-weight: 700;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-        }
-
-        /* --- Kenar Çubuğu (Profil) --- */
-        #profil {
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px var(--golge-renk);
-            text-align: center;
-            border: 1px solid var(--kenarlik-renk);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        #profil:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        #profil img#profil-foto {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%; /* Yuvarlak fotoğraf */
-            object-fit: cover; /* Fotoğrafı kırpıp sığdır */
-            border: 5px solid var(--vurgu-renk);
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px var(--golge-renk);
-            transition: transform 0.4s ease;
-        }
-
-        #profil img#profil-foto:hover {
-            transform: scale(1.08) rotate(3deg); /* Hafif büyütme ve döndürme efekti */
-        }
-
-        #profil h3 {
-            font-family: 'Lato', sans-serif;
-            color: var(--ikincil-renk);
-            margin-bottom: 10px;
-            font-size: 1.4em;
-        }
-
-        #profil p {
-            font-size: 0.95em;
-            color: #555;
-            font-style: italic; /* Biyografi için italik */
-        }
-
-        /* --- Blog Yazıları --- */
-        .blog-yazisi {
-            background-color: #ffffff;
-            margin-bottom: 40px;
-            padding: 35px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px var(--golge-renk);
-            border-left: 7px solid var(--vurgu-renk); /* Sol kenarda vurgu */
-            opacity: 0; /* Başlangıçta görünmez (JS ile animasyon için) */
-            transform: translateY(30px); /* Başlangıçta aşağıda (JS ile animasyon için) */
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            border: 1px solid var(--kenarlik-renk);
-        }
-
-        /* JS ile eklenecek görünürlük sınıfı */
-        .blog-yazisi.gorunur {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .blog-yazisi h2 {
-            font-family: 'Merriweather', serif;
-            color: var(--ikincil-renk);
-            margin-bottom: 10px;
-            font-size: 1.8em;
-            border-bottom: 1px solid var(--kenarlik-renk);
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
-        }
-
-        .blog-yazisi .tarih {
-            font-family: 'Lato', sans-serif;
-            color: #777;
-            font-size: 0.85em;
             margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.8em;
+        }
+
+        h2 {
+            font-size: 1.4em;
+            border-bottom: 1px solid #ccc;
+            color: #555;
+        }
+
+        .instructions {
             font-style: italic;
+            color: #555;
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .blog-yazisi .icerik p {
-            margin-bottom: 1.2em; /* Paragraflar arası boşluk */
-            text-indent: 1.5em; /* Paragraf başı girintisi */
+        ol {
+            list-style-type: none;
+            padding-left: 0;
+            counter-reset: question-counter;
         }
 
-         .blog-yazisi .icerik p::first-letter { /* Paragrafın ilk harfini büyütme */
-            font-size: 1.5em;
-            color: var(--vurgu-renk);
+        ol li {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            counter-increment: question-counter;
+            position: relative;
+            padding-left: 45px; /* Soru numarası için yer */
+        }
+
+        ol li::before {
+            content: counter(question-counter) ".";
+            position: absolute;
+            left: 15px;
+            top: 15px;
             font-weight: bold;
-            margin-right: 0.05em;
-            float: left; /* Metnin etrafında akmasını sağlar */
-            line-height: 1;
-            padding-right: 5px;
-            padding-top: 3px;
+            color: #3498db;
+            font-size: 1.1em;
+        }
+
+
+        .question-stem {
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: block; /* Satır başı yapmak için */
+        }
+
+        .options div {
+            margin-bottom: 8px;
+            padding-left: 25px; /* Seçenek harfi için yer */
+            position: relative;
+        }
+
+         .options div::before {
+            position: absolute;
+            left: 0;
+            font-weight: bold;
          }
 
-        .blog-yazisi a {
-            color: var(--vurgu-renk);
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
+        .options .option-a::before { content: "A)"; }
+        .options .option-b::before { content: "B)"; }
+        .options .option-c::before { content: "C)"; }
+        .options .option-d::before { content: "D)"; }
+        .options .option-e::before { content: "E)"; }
+
+        #answer-key {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px dashed #ccc;
         }
 
-        .blog-yazisi a:hover {
-            color: var(--ikincil-renk);
-            text-decoration: underline;
+        #answer-key ul {
+            list-style-type: none;
+            padding: 0;
+            column-count: 4; /* Cevapları sütunlara böl */
+            column-gap: 20px;
         }
 
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            font-size: 0.9em;
-            color: #777;
-            border-top: 1px dashed var(--kenarlik-renk);
-            font-family: 'Lato', sans-serif;
+         #answer-key li {
+             margin-bottom: 5px;
+             font-family: 'Courier New', Courier, monospace;
+         }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #ccc;
+            margin: 30px 0;
         }
 
-        /* --- Duyarlılık (Responsive Tasarım) --- */
-        @media (max-width: 900px) {
-            .container {
-                flex-direction: column; /* Küçük ekranlarda alt alta diz */
-                margin-top: 20px;
+        /* --- Yazdırma Stilleri --- */
+        @media print {
+            body {
+                background-color: #fff;
+                color: #000;
+                font-size: 11pt; /* Yazdırma için font boyutunu ayarla */
+                margin: 0;
+                padding: 0;
             }
 
-            aside {
-                position: static; /* Sabitlemeyi kaldır */
-                width: 80%;
-                margin: 0 auto 30px auto; /* Ortala ve boşluk bırak */
-            }
-
-            main {
+            .booklet-container {
                 width: 100%;
-            }
-        }
-
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 2em;
+                margin: 0;
+                padding: 10mm; /* Kenar boşlukları */
+                border: none;
+                box-shadow: none;
             }
 
-            .blog-yazisi {
-                padding: 25px;
+            h1, h2 {
+                border-bottom: 1px solid #000;
+                color: #000;
             }
 
-            .blog-yazisi h2 {
-                font-size: 1.5em;
+            ol li {
+                background-color: #fff;
+                border: 1px solid #ccc;
+                page-break-inside: avoid; /* Soruların sayfa ortasında bölünmesini engellemeye çalış */
             }
 
-            #profil {
-                width: 95%;
+             ol li::before {
+                 color: #000;
+             }
+
+             #answer-key {
+                page-break-before: always; /* Cevap anahtarını yeni sayfada başlat */
+                border-top: 1px solid #000;
+             }
+
+             #answer-key ul {
+                column-count: 3;
+             }
+
+            /* İsteğe bağlı: Cevap anahtarını yazdırmamak için
+            #answer-key {
+                display: none;
             }
-        }
-
-        /* --- Ekstra Görsel Efektler --- */
-        ::selection { /* Metin seçildiğindeki renk */
-            background-color: var(--vurgu-renk);
-            color: white;
-        }
-
-        /* Kaydırma çubuğu stilizasyonu (Webkit tarayıcılar için) */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--ana-renk);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--vurgu-renk);
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--ikincil-renk);
+            */
         }
 
     </style>
 </head>
 <body>
+    <div class="booklet-container">
+        <h1>TUS Düzeyi Mikrobiyoloji ve İmmünoloji Soru Kitapçığı</h1>
+        <p class="instructions">Toplam 20 Soru. Her soru için yalnızca bir doğru cevap vardır. Süre: 30 Dakika (Önerilen)</p>
 
-    <header>
-        <h1>Dayımın Edebi Köşesi</h1>
-        </header>
-
-    <div class="container">
-        <aside id="profil">
-            <img id="profil-foto" src="https://via.placeholder.com/150" alt="Profil Fotoğrafı">
-            <h3>Yazar Hakkında</h3>
-            <p>Buraya dayınız hakkında kısa bir tanıtım yazısı veya biyografi eklenebilir. Edebiyatla olan ilişkisi, ilgi alanları vb.</p>
-            </aside>
-
-        <main id="yazilar">
-            <article class="blog-yazisi">
-                <h2>İlk Yazı: Edebiyatın Büyüsü</h2>
-                <p class="tarih">9 Nisan 2025</p>
-                <div class="icerik">
-                    <p>Edebiyat, kelimelerin dans ettiği, duyguların hayat bulduğu büyülü bir dünyadır. Bu dünyada gezinmek, farklı karakterlerle tanışmak, bilinmeyen diyarlara yolculuk etmek ruhumuzu besler. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <p>Her kitap yeni bir maceradır, her şiir kalbe dokunan bir fısıltıdır. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Daha fazla bilgi için <a href="#">bu linke</a> tıklayabilirsiniz.</p>
+        <ol>
+            <li>
+                <span class="question-stem">Genç, cinsel olarak aktif bir kadında idrar yolu enfeksiyonuna neden olan, tipik olarak koagülaz negatif olan *Staphylococcus* türü aşağıdakilerden hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">*Staphylococcus aureus*</div>
+                    <div class="option-b">*Staphylococcus epidermidis*</div>
+                    <div class="option-c">*Staphylococcus saprophyticus*</div>
+                    <div class="option-d">*Staphylococcus lugdunensis*</div>
+                    <div class="option-e">*Staphylococcus haemolyticus*</div>
                 </div>
-                </article>
-            <article class="blog-yazisi">
-                <h2>Kitapların Sessiz Dünyası</h2>
-                <p class="tarih">1 Nisan 2025</p>
-                <div class="icerik">
-                    <p>Kitap sayfaları arasında kaybolmak, zamanın nasıl geçtiğini unutmak eşsiz bir deneyimdir. Integer vitae justo eget magna fermentum iaculis eu non diam. Curabitur vitae nunc sed velit dignissim sodales ut eu sem. </p>
-                    <p>Suspendisse potenti nullam ac tortor vitae purus faucibus. Nunc consequat interdum varius sit amet mattis vulputate. Massa tincidunt dui ut ornare lectus sit. Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt tortor.</p>
+            </li>
+
+            <li>
+                <span class="question-stem">Akut romatizmal ateş, aşağıdaki mikroorganizmaların hangisiyle geçirilen farenjit sonrası gelişebilen non-süpüratif bir komplikasyondur?</span>
+                <div class="options">
+                    <div class="option-a">*Streptococcus agalactiae* (Grup B)</div>
+                    <div class="option-b">*Streptococcus pneumoniae*</div>
+                    <div class="option-c">*Streptococcus pyogenes* (Grup A)</div>
+                    <div class="option-d">*Enterococcus faecalis*</div>
+                    <div class="option-e">*Staphylococcus aureus*</div>
                 </div>
-                </article>
-            </main>
-    </div>
+            </li>
 
-    <footer>
-        <p>&copy; 2025 - Dayımın Edebi Köşesi | Tüm Hakları Saklıdır.</p>
-    </footer>
+             <li>
+                <span class="question-stem">*Mycobacterium tuberculosis*'in klinik örneklerde mikroskobik olarak saptanması için en sık kullanılan boyama yöntemi aşağıdakilerden hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">Gram boyama</div>
+                    <div class="option-b">Giemsa boyama</div>
+                    <div class="option-c">Ziehl-Neelsen boyama</div>
+                    <div class="option-d">Çini mürekkebi</div>
+                    <div class="option-e">Gümüşleme</div>
+                </div>
+            </li>
 
-    <script>
-        // --- Gelişmiş JavaScript Kodları ---
+             <li>
+                <span class="question-stem">İdrar kültüründen izole edilen bir bakteri Gram negatif basil, oksidaz negatif, MacConkey agarda laktozu fermente ediyor ve indol pozitiftir. En olası etken aşağıdakilerden hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">*Klebsiella pneumoniae*</div>
+                    <div class="option-b">*Proteus mirabilis*</div>
+                    <div class="option-c">*Pseudomonas aeruginosa*</div>
+                    <div class="option-d">*Escherichia coli*</div>
+                    <div class="option-e">*Salmonella enterica*</div>
+                </div>
+            </li>
 
-        document.addEventListener('DOMContentLoaded', function() {
+             <li>
+                <span class="question-stem">Mide ülserleri ve gastrik adenokarsinom ile ilişkili olan, güçlü üreaz aktivitesine sahip Gram negatif kıvrık basil aşağıdakilerden hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">*Vibrio cholerae*</div>
+                    <div class="option-b">*Campylobacter jejuni*</div>
+                    <div class="option-c">*Helicobacter pylori*</div>
+                    <div class="option-d">*Pseudomonas aeruginosa*</div>
+                    <div class="option-e">*Brucella melitensis*</div>
+                </div>
+            </li>
 
-            // 1. Scroll ile Blog Yazılarını Fade-in Efekti
-            const blogYazilari = document.querySelectorAll('.blog-yazisi');
+             <li>
+                <span class="question-stem">Klindamisin tedavisi sonrası şiddetli ishal, karın ağrısı ve ateş gelişen bir hastanın endoskopisinde psödomembranlar görülüyor. En olası etken mikroorganizma hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">*Clostridium perfringens*</div>
+                    <div class="option-b">*Bacteroides fragilis*</div>
+                    <div class="option-c">*Clostridium difficile* (yeni adı *Clostridioides difficile*)</div>
+                    <div class="option-d">*Campylobacter jejuni*</div>
+                    <div class="option-e">*Vibrio cholerae*</div>
+                </div>
+            </li>
 
-            const observerOptions = {
-                root: null, // viewport'u referans al
-                rootMargin: '0px',
-                threshold: 0.1 // %10'u göründüğünde tetikle
-            };
+             <li>
+                <span class="question-stem">Aşağıdaki immünoglobulin izotiplerinden hangisi özellikle mukozal salgılarda (tükürük, gözyaşı, süt, GIS salgıları) bulunur ve mukozal immünitede kilit rol oynar?</span>
+                <div class="options">
+                    <div class="option-a">IgG</div>
+                    <div class="option-b">IgM</div>
+                    <div class="option-c">IgA</div>
+                    <div class="option-d">IgE</div>
+                    <div class="option-e">IgD</div>
+                </div>
+            </li>
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('gorunur');
-                        // İsteğe bağlı: Bir kere göründükten sonra observe etmeyi bırak
-                        // observer.unobserve(entry.target);
-                    }
-                    // İsteğe bağlı: Ekrandan çıkınca tekrar gizlemek için:
-                    // else {
-                    //     entry.target.classList.remove('gorunur');
-                    // }
-                });
-            }, observerOptions);
+             <li>
+                <span class="question-stem">Antijenlerin CD4+ T yardımcı hücrelere sunulabilmesi için işlenmesi ve aşağıdaki moleküllerden hangisi üzerinde sunulması gerekir?</span>
+                <div class="options">
+                    <div class="option-a">MHC Sınıf I</div>
+                    <div class="option-b">MHC Sınıf II</div>
+                    <div class="option-c">CD1</div>
+                    <div class="option-d">TLR4</div>
+                    <div class="option-e">B7</div>
+                </div>
+            </li>
 
-            blogYazilari.forEach(yazi => {
-                observer.observe(yazi);
-            });
+            <li>
+                <span class="question-stem">Isıya duyarlı tıbbi malzemelerin (örneğin bazı plastikler, endoskoplar) sterilizasyonunda aşağıdaki yöntemlerden hangisi tercih edilir?</span>
+                <div class="options">
+                    <div class="option-a">Otoklav (Basınçlı buhar)</div>
+                    <div class="option-b">Kuru ısı (Pastör fırını)</div>
+                    <div class="option-c">Etilen oksit gazı</div>
+                    <div class="option-d">Kaynatma</div>
+                    <div class="option-e">Pastörizasyon</div>
+                </div>
+            </li>
 
-            // 2. Profil Fotoğrafına Basit Animasyon (CSS'de zaten var ama JS ile de yapılabilir)
-            const profilFoto = document.getElementById('profil-foto');
-            if (profilFoto) {
-                profilFoto.addEventListener('mouseenter', () => {
-                    // CSS'deki hover efekti yeterli, burası örnek amaçlıdır.
-                    // İstenirse buraya daha karmaşık animasyonlar eklenebilir.
-                    // console.log("Profil fotosu üzerine gelindi.");
-                });
-                profilFoto.addEventListener('mouseleave', () => {
-                    // console.log("Profil fotosundan çıkıldı.");
-                });
-            }
+             <li>
+                <span class="question-stem">Üç gün süren yüksek ateşin ani düşmesini takiben önce gövdede başlayan makülopapüler döküntü ile karakterize, genellikle 6 ay - 2 yaş arası çocuklarda görülen hastalığın ( altıncı hastalık, roseola infantum) etkeni olan virüs aşağıdakilerden hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">Kızamık virüsü</div>
+                    <div class="option-b">Rubella virüsü</div>
+                    <div class="option-c">Varicella-zoster virüsü</div>
+                    <div class="option-d">Parvovirüs B19</div>
+                    <div class="option-e">İnsan Herpesvirüs 6 (HHV-6)</div>
+                </div>
+            </li>
 
-            // 3. (Opsiyonel) Gelecekte Eklenebilecekler:
-            //    - Tema Değiştirme Butonu (Açık/Koyu Mod)
-            //    - Sayfa Başına Dön Butonu
-            //    - Yazı Filtreleme/Arama özelliği
+            <li>
+                <span class="question-stem">İnsan bağırsağında bulunan normal flora üyelerinin konağa sağladığı en önemli faydalardan biri aşağıdakilerden hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">Patojen bakterilerin kolonizasyonunu önlemek (kolonizasyon direnci)</div>
+                    <div class="option-b">İnorganik maddeleri organik maddelere çevirmek</div>
+                    <div class="option-c">İnsan için esansiyel olan tüm amino asitleri sentezlemek</div>
+                    <div class="option-d">Konak hücreleri için enerji üretmek (ATP sentezi)</div>
+                    <div class="option-e">Ağır metalleri detoksifiye etmek</div>
+                </div>
+            </li>
 
-            console.log("Edebi Blog Scriptleri Yüklendi!");
+            <li>
+                <span class="question-stem">Gram boyama yönteminde Gram pozitif ve Gram negatif bakteriler arasındaki temel farkı yaratan yapı aşağıdakilerden hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">Hücre membranı</div>
+                    <div class="option-b">Kapsül</div>
+                    <div class="option-c">Peptidoglikan tabakası (Hücre duvarı)</div>
+                    <div class="option-d">Ribozomlar</div>
+                    <div class="option-e">Pili</div>
+                </div>
+            </li>
 
-        });
-    </script>
+            <li>
+                <span class="question-stem">Gebelerde düşüklere, yenidoğanlarda menenjite neden olabilen, buzdolabı sıcaklığında (4°C) üreyebilen ve hücreden hücreye aktin filamentlerini kullanarak hareket edebilen Gram pozitif basil aşağıdakilerden hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">*Bacillus anthracis*</div>
+                    <div class="option-b">*Corynebacterium diphtheriae*</div>
+                    <div class="option-c">*Clostridium tetani*</div>
+                    <div class="option-d">*Listeria monocytogenes*</div>
+                    <div class="option-e">*Bacillus cereus*</div>
+                </div>
+            </li>
 
-</body>
+            <li>
+                <span class="question-stem">Ani başlayan ateş, baş ağrısı, ense sertliği ve peteşiyal döküntülerle seyreden fulminan meningokoksemi (Waterhouse-Friderichsen sendromu) tablosuna yol açabilen mikroorganizmanın en önemli virülans faktörü aşağıdakilerden hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">Pili</div>
+                    <div class="option-b">IgA proteaz</div>
+                    <div class="option-c">Endotoksin (LPS)</div>
+                    <div class="option-d">Polisakkarit kapsül</div>
+                    <div class="option-e">Demir bağlayan proteinler</div>
+                </div>
+            </li>
+
+            <li>
+                <span class="question-stem">Hastane kaynaklı enfeksiyonların önemli bir etkeni olan, özellikle yanık hastaları ve kistik fibrozisli hastalarda ciddi enfeksiyonlara yol açabilen, mavi-yeşil pigment (piyosiyanin) üretebilen ve oksidaz pozitif olan Gram negatif basil aşağıdakilerden hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">*Acinetobacter baumannii*</div>
+                    <div class="option-b">*Stenotrophomonas maltophilia*</div>
+                    <div class="option-c">*Escherichia coli*</div>
+                    <div class="option-d">*Klebsiella pneumoniae*</div>
+                    <div class="option-e">*Pseudomonas aeruginosa*</div>
+                </div>
+            </li>
+
+            <li>
+                <span class="question-stem">Çikolata agarda üreyebilen ancak kanlı agarda üreyemeyen, üremesi için X faktörü (hemin) ve V faktörüne (NAD) ihtiyaç duyan Gram negatif kokobasil aşağıdakilerden hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">*Bordetella pertussis*</div>
+                    <div class="option-b">*Brucella abortus*</div>
+                    <div class="option-c">*Francisella tularensis*</div>
+                    <div class="option-d">*Haemophilus influenzae*</div>
+                    <div class="option-e">*Pasteurella multocida*</div>
+                </div>
+            </li>
+
+            <li>
+                <span class="question-stem">*Ixodes* cinsi kenelerin ısırmasıyla bulaşan, başlangıçta tipik olarak "eritema migrans" adı verilen hedef tahtası şeklinde deri döküntüsüne, ilerleyen dönemlerde ise nörolojik, kardiyak ve eklem bulgularına yol açabilen spiroket aşağıdakilerden hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">*Treponema pallidum*</div>
+                    <div class="option-b">*Leptospira interrogans*</div>
+                    <div class="option-c">*Borrelia recurrentis*</div>
+                    <div class="option-d">*Borrelia burgdorferi*</div>
+                    <div class="option-e">*Spirillum minus*</div>
+                </div>
+            </li>
+
+            <li>
+                <span class="question-stem">T lenfositlerinin farklılaşma ve olgunlaşma sürecini tamamladığı primer (birincil) lenfoid organ aşağıdakilerden hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">Kemik iliği</div>
+                    <div class="option-b">Dalak</div>
+                    <div class="option-c">Lenf düğümleri</div>
+                    <div class="option-d">Timus</div>
+                    <div class="option-e">Peyer plakları</div>
+                </div>
+            </li>
+
+            <li>
+                <span class="question-stem">Kompleman sisteminin klasik yolunu aktive eden en güçlü tetikleyici aşağıdakilerden hangisidir?</span>
+                <div class="options">
+                    <div class="option-a">Bakteriyel lipopolisakkarit (LPS)</div>
+                    <div class="option-b">Antijene bağlanmış IgM veya IgG antikorları</div>
+                    <div class="option-c">Mannoz bağlayan lektin (MBL)</div>
+                    <div class="option-d">Virüsle enfekte hücre yüzeyleri</div>
+                    <div class="option-e">Maya hücre duvarı (Zimosan)</div>
+                </div>
+            </li>
+
+            <li>
+                <span class="question-stem">Aşağıdaki virüslerden hangisi diğerlerinden farklı olarak RNA genomuna sahiptir?</span>
+                <div class="options">
+                    <div class="option-a">Herpes Simplex Virüsü (HSV)</div>
+                    <div class="option-b">Varicella-Zoster Virüsü (VZV)</div>
+                    <div class="option-c">İnfluenza Virüsü</div>
+                    <div class="option-d">Adenovirüs</div>
+                    <div class="option-e">Papillomavirüs (HPV)</div>
+                </div>
+            </li>
+
+        </ol>
+
+        <hr>
+
+        <div id="answer-key">
+            <h2>Cevap Anahtarı</h2>
+            <ul>
+                <li>1. C</li>
+                <li>2. C</li>
+                <li>3. C</li>
+                <li>4. D</li>
+                <li>5. C</li>
+                <li>6. C</li>
+                <li>7. C</li>
+                <li>8. B</li>
+                <li>9. C</li>
+                <li>10. E</li>
+                <li>11. A</li>
+                <li>12. C</li>
+                <li>13. D</li>
+                <li>14. D</li>
+                <li>15. E</li>
+                <li>16. D</li>
+                <li>17. D</li>
+                <li>18. D</li>
+                <li>19. B</li>
+                <li>20. C</li>
+            </ul>
+        </div>
+
+    </div> </body>
 </html>
