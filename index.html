@@ -3,40 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TUS Mikrobiyoloji & İmmünoloji Deneme Sınavı</title>
+    <title>TUS Mikrobiyoloji & İmmünoloji Deneme Sınavı (2 Sayfa Baskı)</title>
     <style>
+        /* --- Genel Stiller (Ekran ve Temel) --- */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            line-height: 1.6; /* Ekran için daha rahat satır aralığı */
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4; /* Ekran görünümü için */
+            background-color: #f4f4f4;
             color: #333;
         }
 
         .booklet-container {
-            max-width: 800px;
+            max-width: 850px; /* Biraz daha geniş */
             margin: 20px auto;
-            padding: 30px;
+            padding: 25px;
             background-color: #fff;
             border: 1px solid #ddd;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Ekran görünümü için */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
         h1, h2 {
             text-align: center;
             color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
         }
 
         h1 {
-            font-size: 1.8em;
+            font-size: 1.6em; /* Biraz küçültüldü */
+            border-bottom: 2px solid #3498db;
         }
 
         h2 {
-            font-size: 1.4em;
+            font-size: 1.3em; /* Biraz küçültüldü */
             border-bottom: 1px solid #ccc;
             color: #555;
         }
@@ -45,7 +46,8 @@
             font-style: italic;
             color: #555;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            font-size: 0.95em; /* Biraz küçültüldü */
         }
 
         ol {
@@ -57,35 +59,36 @@
         ol li {
             background-color: #f9f9f9;
             border: 1px solid #eee;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 5px;
+            padding: 12px; /* Azaltıldı */
+            margin-bottom: 12px; /* Azaltıldı */
+            border-radius: 4px;
             counter-increment: question-counter;
             position: relative;
-            padding-left: 45px; /* Soru numarası için yer */
+            padding-left: 40px; /* Soru numarası için yer ayarlandı */
         }
 
         ol li::before {
             content: counter(question-counter) ".";
             position: absolute;
-            left: 15px;
-            top: 15px;
+            left: 12px; /* Ayarlandı */
+            top: 12px; /* Ayarlandı */
             font-weight: bold;
             color: #3498db;
-            font-size: 1.1em;
+            font-size: 1em; /* Biraz küçültüldü */
         }
-
 
         .question-stem {
             font-weight: bold;
-            margin-bottom: 15px;
-            display: block; /* Satır başı yapmak için */
+            margin-bottom: 10px; /* Azaltıldı */
+            display: block;
+            font-size: 0.95em; /* Biraz küçültüldü */
         }
 
         .options div {
-            margin-bottom: 8px;
-            padding-left: 25px; /* Seçenek harfi için yer */
+            margin-bottom: 5px; /* Azaltıldı */
+            padding-left: 22px; /* Seçenek harfi için yer ayarlandı */
             position: relative;
+            font-size: 0.9em; /* Biraz küçültüldü */
         }
 
          .options div::before {
@@ -101,36 +104,43 @@
         .options .option-e::before { content: "E)"; }
 
         #answer-key {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px dashed #ccc;
+            margin-top: 25px; /* Azaltıldı */
+            padding-top: 15px; /* Azaltıldı */
+            border-top: 1px dashed #ccc;
         }
 
         #answer-key ul {
             list-style-type: none;
             padding: 0;
-            column-count: 4; /* Cevapları sütunlara böl */
-            column-gap: 20px;
+            column-count: 5; /* Cevapları daha fazla sütuna böl */
+            column-gap: 15px; /* Sütun aralığı azaltıldı */
         }
 
          #answer-key li {
-             margin-bottom: 5px;
+             margin-bottom: 4px; /* Azaltıldı */
              font-family: 'Courier New', Courier, monospace;
+             font-size: 0.9em; /* Biraz küçültüldü */
          }
 
         hr {
             border: 0;
             height: 1px;
             background-color: #ccc;
-            margin: 30px 0;
+            margin: 25px 0; /* Azaltıldı */
         }
 
-        /* --- Yazdırma Stilleri --- */
+        /* --- Yazdırma Stilleri (2 Sayfaya Sığdırma Odaklı) --- */
         @media print {
+            @page {
+                size: A4;
+                margin: 15mm 15mm 15mm 15mm; /* Kenar boşlukları */
+            }
+
             body {
                 background-color: #fff;
                 color: #000;
-                font-size: 11pt; /* Yazdırma için font boyutunu ayarla */
+                font-size: 10pt; /* Yazdırma için temel font boyutu küçültüldü */
+                line-height: 1.3; /* Satır aralığı azaltıldı */
                 margin: 0;
                 padding: 0;
             }
@@ -138,40 +148,79 @@
             .booklet-container {
                 width: 100%;
                 margin: 0;
-                padding: 10mm; /* Kenar boşlukları */
+                padding: 0; /* Kapsayıcı padding kaldırıldı, @page marjini kullanılacak */
                 border: none;
                 box-shadow: none;
             }
 
-            h1, h2 {
-                border-bottom: 1px solid #000;
-                color: #000;
+            h1 {
+                 font-size: 14pt; /* Başlık boyutu ayarlandı */
+                 border-bottom: 1px solid #000;
+                 margin-bottom: 10mm; /* Başlık altı boşluk */
+            }
+             h2 {
+                 font-size: 12pt; /* Başlık boyutu ayarlandı */
+                 border-bottom: 1px solid #000;
+                 margin-top: 10mm; /* Cevap anahtarı başlığı üstü boşluk */
+                 margin-bottom: 5mm;
+             }
+
+            .instructions {
+                 font-size: 9pt; /* Talimatlar küçültüldü */
+                 margin-bottom: 8mm; /* Talimat altı boşluk */
             }
 
             ol li {
                 background-color: #fff;
-                border: 1px solid #ccc;
+                border: none; /* İnce çerçeveler kaldırıldı */
+                padding: 5pt 0 5pt 30pt; /* Dikey padding azaltıldı, sol padding numara için kaldı*/
+                margin-bottom: 5pt; /* Soru arası boşluk azaltıldı */
                 page-break-inside: avoid; /* Soruların sayfa ortasında bölünmesini engellemeye çalış */
+                font-size: 10pt; /* Soru font boyutu */
             }
 
              ol li::before {
+                 left: 5pt; /* Numara pozisyonu ayarlandı */
+                 top: 5pt; /* Numara pozisyonu ayarlandı */
                  color: #000;
+                 font-size: 10pt;
              }
 
-             #answer-key {
-                page-break-before: always; /* Cevap anahtarını yeni sayfada başlat */
-                border-top: 1px solid #000;
+            .question-stem {
+                font-size: 10pt; /* Soru kökü boyutu */
+                margin-bottom: 6pt; /* Boşluk azaltıldı */
+            }
+
+            .options div {
+                 font-size: 9.5pt; /* Seçenekler biraz daha küçük */
+                 padding-left: 18pt; /* Seçenek harfi için yer ayarlandı */
+                 margin-bottom: 3pt; /* Seçenek arası boşluk azaltıldı */
+             }
+
+             .options div::before {
+                  left: 0;
+             }
+
+            #answer-key {
+                /* page-break-before: always;  KALDIRILDI - Cevap anahtarı aynı sayfada devam edecek */
+                margin-top: 8mm; /* Cevap anahtarı üst boşluğu */
+                border-top: 1px solid #000; /* Daha belirgin ayraç */
+                padding-top: 5mm;
              }
 
              #answer-key ul {
-                column-count: 3;
+                column-count: 5; /* Daha fazla sütun */
+                column-gap: 10pt;
              }
 
-            /* İsteğe bağlı: Cevap anahtarını yazdırmamak için
-            #answer-key {
-                display: none;
-            }
-            */
+             #answer-key li {
+                 font-size: 9pt; /* Cevap anahtarı fontu küçültüldü */
+                 margin-bottom: 2pt;
+             }
+
+             hr {
+                display: none; /* Yatay çizgiyi yazdırmada gizle */
+             }
         }
 
     </style>
@@ -179,7 +228,7 @@
 <body>
     <div class="booklet-container">
         <h1>TUS Düzeyi Mikrobiyoloji ve İmmünoloji Soru Kitapçığı</h1>
-        <p class="instructions">Toplam 20 Soru. Her soru için yalnızca bir doğru cevap vardır. Süre: 30 Dakika (Önerilen)</p>
+        <p class="instructions">Toplam 20 Soru. Her soru için yalnızca bir doğru cevap vardır.</p>
 
         <ol>
             <li>
@@ -403,8 +452,6 @@
             </li>
 
         </ol>
-
-        <hr>
 
         <div id="answer-key">
             <h2>Cevap Anahtarı</h2>
