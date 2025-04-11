@@ -64,9 +64,11 @@
              font-weight: bold;
              color: #3498db;
              margin-right: 8px; /* Numara ile metin arası boşluk */
+             min-width: 20px; /* Ensure space for number */
+             text-align: right;
         }
         .question-number::before {
-            content: counter(question-counter) ". ";
+            content: counter(question-counter) ".";
         }
 
         .question-stem {
@@ -77,7 +79,7 @@
         }
 
         .options {
-             padding-left: 25px; /* Seçenekleri biraz içeriden başlat */
+             padding-left: 30px; /* Seçenekleri biraz içeriden başlat (numara genişliğine göre ayarla) */
              margin-top: 8px; /* Soru metni ile seçenekler arası boşluk */
         }
 
@@ -106,14 +108,18 @@
         .answer-key-list {
             list-style-type: none;
             padding: 0;
-            column-count: 5; /* Cevapları sütunlara böl */
+            column-count: 5; /* Cevapları sütunlara böl (ekran) */
             column-gap: 20px;
+            text-align: center;
         }
 
          .answer-key-list li {
              margin-bottom: 5px;
              font-family: 'Courier New', Courier, monospace;
              font-size: 0.95em;
+             display: inline-block; /* Ensure columns work well */
+             width: 80px; /* Adjust width for screen columns */
+             text-align: left;
          }
 
 
@@ -121,130 +127,158 @@
         @media print {
             @page {
                 size: A4;
-                margin: 10mm 12mm 10mm 12mm; /* Min kenar boşlukları */
+                margin: 10mm 12mm 10mm 12mm; /* Kenar boşlukları */
             }
 
             body {
-                background-color: #fff;
-                color: #000;
-                font-size: 9pt; /* Yazdırma için temel font küçültüldü */
-                line-height: 1.25; /* Satır aralığı azaltıldı */
+                background-color: #fff !important; /* Arka planı beyaz yap */
+                color: #000 !important; /* Yazı rengi siyah */
+                font-size: 9.5pt; /* Temel font boyutu */
+                line-height: 1.25; /* Satır aralığı */
                 margin: 0;
                 padding: 0;
-                font-family: Arial, Helvetica, sans-serif; /* Daha sıkışık standart font */
+                font-family: Arial, Helvetica, sans-serif; /* Standart font */
+                width: 100%;
             }
+
+            /* Hide screen-specific elements if any */
+            /* hr { display: none; } */
 
             .booklet-container {
                 width: 100%;
                 margin: 0;
                 padding: 0;
-                border: none;
-                box-shadow: none;
-                background-color: #fff;
+                border: none !important;
+                box-shadow: none !important;
+                background-color: #fff !important;
             }
 
             .page-title {
-                 font-size: 12pt; /* Başlık küçültüldü */
+                 font-size: 11pt;
+                 font-weight: bold;
+                 color: #000 !important;
                  border-bottom: 1px solid #000;
-                 margin-bottom: 5mm; /* Başlık altı boşluk azaltıldı */
-                 text-align: left; /* Başlık sola yaslandı */
-                 padding-bottom: 2mm;
+                 margin-bottom: 4mm;
+                 text-align: center; /* Center title */
+                 padding-bottom: 1.5mm;
             }
 
             .instructions {
-                 font-size: 8pt; /* Talimatlar küçültüldü */
-                 margin-bottom: 5mm; /* Talimat altı boşluk azaltıldı */
-                 text-align: left;
-                 font-style: normal;
+                 font-size: 8.5pt;
+                 margin-bottom: 4mm;
+                 text-align: center; /* Center instructions */
+                 font-style: italic;
+                 color: #000 !important;
             }
 
             .question-list {
-                margin-bottom: 5mm; /* Sorular ve cevap anahtarı arası boşluk azaltıldı */
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+                counter-reset: question-counter;
             }
 
             .question-item {
-                background-color: #fff;
-                border: none; /* Çerçeveler kaldırıldı */
-                padding: 1.5mm 0; /* Dikey padding çok azaltıldı, yatay sıfır */
-                margin-bottom: 2mm; /* Soru arası boşluk azaltıldı */
-                page-break-inside: avoid; /* Soruların sayfa ortasında bölünmesini engelle */
-                font-size: 9pt; /* Soru fontu */
+                background-color: #fff !important;
+                border: none !important;
+                padding: 1mm 0;
+                margin-bottom: 1.5mm;
+                page-break-inside: avoid !important; /* Soruları bölme */
+                font-size: 9.5pt;
             }
+
+            /* --- Force Page Break after 10th Question --- */
+            .question-item:nth-child(10) {
+                 page-break-after: always !important;
+            }
+
 
             .question-number {
                 display: inline-block;
-                width: 20pt; /* Numara için sabit genişlik */
-                vertical-align: top; /* Hizalama */
+                width: 18pt; /* Numara için genişlik */
+                vertical-align: top;
                 font-weight: bold;
-                color: #000;
+                color: #000 !important;
                 margin-right: 2pt;
+                padding-top: 0.2mm; /* Numarayı metinle hizala */
+                text-align: left;
             }
-            .question-number::before {
+             .question-number::before {
                  content: counter(question-counter) ".";
-            }
+             }
+
 
             .question-stem {
                 display: inline-block;
-                width: calc(100% - 25pt); /* Kalan genişlik soru metnine */
+                width: calc(100% - 22pt); /* Kalan genişlik soru metnine */
                 vertical-align: top;
-                margin-bottom: 1.5mm; /* Soru metni ile seçenekler arası boşluk */
-                font-weight: normal; /* Yazdırmada da normal */
+                margin-bottom: 1.5mm; /* Soru ile seçenekler arası boşluk */
+                font-weight: normal;
+                padding-left: 1pt;
+                color: #000 !important;
             }
 
             .options {
-                 padding-left: 22pt; /* Seçenekleri numaranın altına hizala */
-                 margin-top: 0; /* Üstteki boşluk kaldırıldı */
+                 padding-left: 20pt; /* Seçenekleri numaranın altına hizala */
+                 margin-top: 0.5mm;
+                 /* overflow: hidden; */ /* Needed for inline-block columns */
             }
 
             .options div {
-                 font-size: 9pt; /* Seçenekler aynı boyutta */
-                 margin-bottom: 1mm; /* Seçenek arası boşluk azaltıldı */
-                 display: inline-block; /* Seçenekleri yan yana sığdırmaya çalış */
-                 width: calc(50% - 2pt); /* İki sütunlu seçenek düzeni */
-                 padding-right: 4pt; /* Sütunlar arası hafif boşluk */
-                 box-sizing: border-box; /* Padding genişliğe dahil */
+                 font-size: 9pt; /* Seçenek font boyutu */
+                 margin-bottom: 1mm; /* Seçenek arası dikey boşluk */
+                 display: inline-block;
+                 width: calc(50% - 4pt); /* İki sütunlu seçenek */
+                 padding-right: 4pt;
+                 box-sizing: border-box;
                  vertical-align: top;
-            }
-            /* Tek sayılı seçenekler (A, C, E) */
-            .options div:nth-child(odd) {
-                /* Zaten solda */
-            }
-            /* Çift sayılı seçenekler (B, D) */
-            .options div:nth-child(even) {
-               /* Zaten sağda */
+                 line-height: 1.2;
+                 color: #000 !important;
             }
 
              .option-letter {
                  font-weight: bold;
                  margin-right: 3pt;
+                 color: #000 !important;
              }
 
             .answer-key-section {
-                page-break-before: avoid; /* Cevap anahtarını mümkünse önceki sayfada tut */
-                margin-top: 5mm; /* Cevap anahtarı üst boşluğu azaltıldı */
-                border-top: 1px solid #000; /* Daha belirgin ayraç */
-                padding-top: 3mm;
+                page-break-before: avoid !important; /* Cevap anahtarını bölme */
+                margin-top: 5mm;
+                border-top: 1px solid #000;
+                padding-top: 2mm;
+                width: 100%;
              }
 
             .answer-key-title {
-                 font-size: 10pt; /* Başlık küçültüldü */
-                 text-align: left; /* Sola yasla */
-                 margin-bottom: 2mm;
+                 font-size: 10pt;
+                 font-weight: bold;
+                 text-align: center; /* Başlığı ortala */
+                 margin-bottom: 1.5mm;
+                 color: #000 !important;
              }
 
              .answer-key-list {
-                column-count: 10; /* Çok sayıda sütun */
-                column-gap: 8pt; /* Sütun aralığı azaltıldı */
+                list-style-type: none;
+                padding: 0;
+                margin: 0 auto; /* Ortala */
+                width: 95%; /* Genişliği ayarla */
+                column-count: 7; /* Sütun sayısı (daha sıkışık) */
+                column-gap: 10pt; /* Sütun aralığı */
+                text-align: center;
              }
 
              .answer-key-list li {
-                 font-size: 8pt; /* Cevap anahtarı fontu küçültüldü */
-                 margin-bottom: 1mm; /* Boşluk azaltıldı */
-                 line-height: 1.1; /* Daha sıkışık */
+                 font-size: 8pt; /* Cevap fontu */
+                 margin-bottom: 0.8mm;
+                 line-height: 1.1;
+                 display: block; /* Let columns handle layout */
+                 /* width: 100%; */ /* Let columns handle width */
+                 text-align: left; /* Sola hizalı */
+                 font-family: 'Courier New', Courier, monospace;
+                 color: #000 !important;
+                 page-break-inside: avoid !important; /* Prevent breaking inside list item */
              }
-
-             /* Ekran için olan elemanları gizle */
-             hr { display: none; }
 
         } /* @media print sonu */
 
@@ -355,8 +389,7 @@
                 </div>
             </li>
 
-             <li class="question-item">
-                 <span class="question-number"></span><span class="question-stem">Üç gün süren yüksek ateşin ani düşmesini takiben önce gövdede başlayan makülopapüler döküntü ile karakterize, genellikle 6 ay - 2 yaş arası çocuklarda görülen hastalığın ( altıncı hastalık, roseola infantum) etkeni olan virüs aşağıdakilerden hangisidir?</span>
+             <li class="question-item"> <span class="question-number"></span><span class="question-stem">Üç gün süren yüksek ateşin ani düşmesini takiben önce gövdede başlayan makülopapüler döküntü ile karakterize, genellikle 6 ay - 2 yaş arası çocuklarda görülen hastalığın ( altıncı hastalık, roseola infantum) etkeni olan virüs aşağıdakilerden hangisidir?</span>
                  <div class="options">
                     <div><span class="option-letter">A)</span> Kızamık virüsü</div>
                     <div><span class="option-letter">B)</span> Rubella virüsü</div>
@@ -365,9 +398,7 @@
                     <div><span class="option-letter">E)</span> İnsan Herpesvirüs 6 (HHV-6)</div>
                 </div>
             </li>
-
-            <li class="question-item">
-                 <span class="question-number"></span><span class="question-stem">İnsan bağırsağında bulunan normal flora üyelerinin konağa sağladığı en önemli faydalardan biri aşağıdakilerden hangisidir?</span>
+            <li class="question-item"> <span class="question-number"></span><span class="question-stem">İnsan bağırsağında bulunan normal flora üyelerinin konağa sağladığı en önemli faydalardan biri aşağıdakilerden hangisidir?</span>
                  <div class="options">
                     <div><span class="option-letter">A)</span> Patojen bakterilerin kolonizasyonunu önlemek (kolonizasyon direnci)</div>
                     <div><span class="option-letter">B)</span> İnorganik maddeleri organik maddelere çevirmek</div>
@@ -493,7 +524,7 @@
                 <li>11. A</li>
                 <li>12. C</li>
                 <li>13. D</li>
-                <li>14. D</li>
+                <li>14. D</li> <li>14. D</li>
                 <li>15. E</li>
                 <li>16. D</li>
                 <li>17. D</li>
