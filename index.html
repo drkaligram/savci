@@ -3,145 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mikrobiyoloji & İmmünoloji Yaprak Test</title>
+    <title>TUS Mikrobiyoloji & İmmünoloji Deneme Sınavı (Yaprak Test)</title>
     <style>
         /* --- Genel Stiller (Ekran ve Temel) --- */
         body {
-            font-family: Arial, Helvetica, sans-serif; /* Daha standart bir font */
-            line-height: 1.5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6; /* Ekran için daha rahat satır aralığı */
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #f4f4f4; /* Ekran arka planı */
             color: #333;
         }
 
         .booklet-container {
-            max-width: 1000px; /* Geniş ekranlar için */
-            margin: 15px auto;
-            padding: 20px;
+            max-width: 1100px; /* Ekran için daha geniş olabilir */
+            margin: 20px auto;
+            padding: 25px;
             background-color: #fff;
             border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
-        /* --- Yaprak Test Başlık Bilgileri --- */
-        .test-header {
-            border: 1px solid #aaa;
-            padding: 10px 15px;
-            margin-bottom: 20px;
-            overflow: hidden; /* Clearfix */
-            font-size: 0.9em;
-        }
-        .test-header .info-left { float: left; width: 60%; }
-        .test-header .info-right { float: right; width: 35%; text-align: right; }
-        .test-header p { margin: 3px 0; }
-        .test-header strong { display: inline-block; min-width: 80px; } /* Etiket hizalaması */
-
-        h1 {
+        .page-title {
             text-align: center;
-            color: #000;
-            font-size: 1.4em;
-            margin-bottom: 15px;
+            font-size: 1.5em;
             font-weight: bold;
+            color: #2c3e50;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
         }
 
-        /* --- Soru Listesi ve Öğeleri --- */
-        ol.question-list {
+         .instructions {
+            font-style: italic;
+            color: #555;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+
+        .question-list {
             list-style-type: none;
             padding-left: 0;
             counter-reset: question-counter;
-            margin-top: 10px;
+            margin-bottom: 30px; /* Sorular ve cevap anahtarı arasına boşluk */
         }
 
-        ol.question-list li {
-            padding: 8px 0 8px 30px; /* Dikey padding azaltıldı, sol padding numara için */
-            margin-bottom: 8px; /* Soru arası boşluk azaltıldı */
+        .question-item {
+            background-color: #f9f9f9; /* Ekran için hafif arka plan */
+            border: 1px solid #eee; /* Ekran için ince çerçeve */
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
             counter-increment: question-counter;
             position: relative;
-            font-size: 0.9em; /* Temel soru fontu */
-            line-height: 1.4; /* Soru içi satır aralığı */
         }
 
-        ol.question-list li::before {
-            content: counter(question-counter) ".";
-            position: absolute;
-            left: 5px;
-            top: 8px;
-            font-weight: bold;
-            color: #000;
+        .question-number {
+             display: inline-block; /* Numara ve metin yan yana */
+             font-weight: bold;
+             color: #3498db;
+             margin-right: 8px; /* Numara ile metin arası boşluk */
+        }
+        .question-number::before {
+            content: counter(question-counter) ". ";
         }
 
         .question-stem {
-            font-weight: normal; /* Daha standart */
-            margin-bottom: 8px;
-            display: block;
+            font-weight: normal; /* Soru metni normal */
+            margin-bottom: 10px;
+            display: inline; /* Numara ile aynı satırda */
+            font-size: 1em; /* Ekran için normal boyut */
         }
 
         .options {
-            padding-left: 5px; /* Seçenekleri hafif içeriden başlat */
+             padding-left: 25px; /* Seçenekleri biraz içeriden başlat */
+             margin-top: 8px; /* Soru metni ile seçenekler arası boşluk */
         }
 
         .options div {
-            margin-bottom: 4px;
-            padding-left: 18px; /* Seçenek harfi için yer */
-            position: relative;
-            font-size: 0.95em; /* Soru köküne göre hafif büyük */
+            margin-bottom: 6px;
+            font-size: 0.95em; /* Ekran için seçenek boyutu */
         }
 
-         .options div::before {
-            position: absolute;
-            left: 0;
-            font-weight: normal; /* Harfler normal */
-            content: attr(data-option) ")"; /* Seçenek harfini data attribute'dan al */
+         .option-letter {
+             font-weight: bold;
+             margin-right: 5px;
          }
 
-        /* --- Cevap Anahtarı --- */
-        #answer-key {
-            margin-top: 20px;
-            padding-top: 10px;
-            border-top: 1px solid #aaa;
+        .answer-key-section {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+        }
+        .answer-key-title {
+             text-align: center;
+             font-size: 1.2em;
+             color: #555;
+             margin-bottom: 15px;
         }
 
-        #answer-key h2 {
-            text-align: center;
-            font-size: 1.1em;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #000;
-            border-bottom: none; /* Başlık altı çizgi kaldırıldı */
-        }
-
-        #answer-key ul {
+        .answer-key-list {
             list-style-type: none;
             padding: 0;
-            column-count: 5;
-            column-gap: 15px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9em;
-            margin: 0 auto;
-            max-width: 400px; /* Cevapları ortalamak için */
+            column-count: 5; /* Cevapları sütunlara böl */
+            column-gap: 20px;
         }
 
-         #answer-key li {
-             margin-bottom: 4px;
-             text-align: center; /* Cevapları ortala */
+         .answer-key-list li {
+             margin-bottom: 5px;
+             font-family: 'Courier New', Courier, monospace;
+             font-size: 0.95em;
          }
 
 
-        /* --- Yazdırma Stilleri (Yaprak Test Formatı - 2 Sütun) --- */
+        /* --- YAZDIRMA STİLLERİ (Yaprak Test Tasarımı) --- */
         @media print {
             @page {
                 size: A4;
-                margin: 12mm 10mm 12mm 10mm; /* Kenar boşlukları daraltıldı */
+                margin: 10mm 12mm 10mm 12mm; /* Min kenar boşlukları */
             }
 
             body {
                 background-color: #fff;
                 color: #000;
-                font-size: 9.5pt; /* Genel font boyutu küçültüldü */
-                line-height: 1.3; /* Satır aralığı sıkılaştırıldı */
+                font-size: 9pt; /* Yazdırma için temel font küçültüldü */
+                line-height: 1.25; /* Satır aralığı azaltıldı */
                 margin: 0;
                 padding: 0;
-                font-family: Arial, Helvetica, sans-serif;
+                font-family: Arial, Helvetica, sans-serif; /* Daha sıkışık standart font */
             }
 
             .booklet-container {
@@ -150,332 +140,366 @@
                 padding: 0;
                 border: none;
                 box-shadow: none;
+                background-color: #fff;
             }
 
-            /* --- Yazdırmada Sütunları Kapsayan Elemanlar --- */
-            .test-header, h1, #answer-key {
-                column-span: all; /* Bu elemanlar sütunları kapsasın */
+            .page-title {
+                 font-size: 12pt; /* Başlık küçültüldü */
+                 border-bottom: 1px solid #000;
+                 margin-bottom: 5mm; /* Başlık altı boşluk azaltıldı */
+                 text-align: left; /* Başlık sola yaslandı */
+                 padding-bottom: 2mm;
             }
 
-            .test-header {
-                font-size: 8.5pt; /* Başlık bilgisi daha küçük */
-                padding: 5pt 8pt;
-                margin-bottom: 5mm;
-            }
-             .test-header p { margin: 1pt 0; }
-
-            h1 {
-                 font-size: 12pt;
-                 margin-bottom: 4mm;
+            .instructions {
+                 font-size: 8pt; /* Talimatlar küçültüldü */
+                 margin-bottom: 5mm; /* Talimat altı boşluk azaltıldı */
+                 text-align: left;
+                 font-style: normal;
             }
 
-            /* --- Soru Listesi Sütun Ayarları --- */
-            ol.question-list {
-                column-count: 2; /* İki sütun */
-                column-gap: 12mm; /* Sütun arası boşluk */
-                column-rule: 1px solid #ccc; /* Sütun arası çizgi (isteğe bağlı) */
-                margin-top: 0;
+            .question-list {
+                margin-bottom: 5mm; /* Sorular ve cevap anahtarı arası boşluk azaltıldı */
             }
 
-            ol.question-list li {
-                padding: 4pt 0 4pt 22pt; /* Dikey padding daha da azaltıldı, sol padding ayarlandı */
-                margin-bottom: 4pt; /* Soru arası boşluk azaltıldı */
-                break-inside: avoid; /* Soru bölünmelerini engelle */
-                page-break-inside: avoid; /* Eski tarayıcılar için */
+            .question-item {
+                background-color: #fff;
+                border: none; /* Çerçeveler kaldırıldı */
+                padding: 1.5mm 0; /* Dikey padding çok azaltıldı, yatay sıfır */
+                margin-bottom: 2mm; /* Soru arası boşluk azaltıldı */
+                page-break-inside: avoid; /* Soruların sayfa ortasında bölünmesini engelle */
                 font-size: 9pt; /* Soru fontu */
             }
 
-             ol.question-list li::before {
-                 left: 3pt; /* Numara pozisyonu ayarlandı */
-                 top: 4pt;
-                 font-size: 9pt;
-             }
+            .question-number {
+                display: inline-block;
+                width: 20pt; /* Numara için sabit genişlik */
+                vertical-align: top; /* Hizalama */
+                font-weight: bold;
+                color: #000;
+                margin-right: 2pt;
+            }
+            .question-number::before {
+                 content: counter(question-counter) ".";
+            }
 
             .question-stem {
-                margin-bottom: 4pt; /* Boşluk azaltıldı */
+                display: inline-block;
+                width: calc(100% - 25pt); /* Kalan genişlik soru metnine */
+                vertical-align: top;
+                margin-bottom: 1.5mm; /* Soru metni ile seçenekler arası boşluk */
+                font-weight: normal; /* Yazdırmada da normal */
+            }
+
+            .options {
+                 padding-left: 22pt; /* Seçenekleri numaranın altına hizala */
+                 margin-top: 0; /* Üstteki boşluk kaldırıldı */
             }
 
             .options div {
-                 font-size: 9pt; /* Seçenekler */
-                 padding-left: 15pt; /* Seçenek harfi için yer ayarlandı */
-                 margin-bottom: 2pt; /* Seçenek arası boşluk azaltıldı */
-             }
-             .options div::before {
-                  left: 0;
+                 font-size: 9pt; /* Seçenekler aynı boyutta */
+                 margin-bottom: 1mm; /* Seçenek arası boşluk azaltıldı */
+                 display: inline-block; /* Seçenekleri yan yana sığdırmaya çalış */
+                 width: calc(50% - 2pt); /* İki sütunlu seçenek düzeni */
+                 padding-right: 4pt; /* Sütunlar arası hafif boşluk */
+                 box-sizing: border-box; /* Padding genişliğe dahil */
+                 vertical-align: top;
+            }
+            /* Tek sayılı seçenekler (A, C, E) */
+            .options div:nth-child(odd) {
+                /* Zaten solda */
+            }
+            /* Çift sayılı seçenekler (B, D) */
+            .options div:nth-child(even) {
+               /* Zaten sağda */
+            }
+
+             .option-letter {
+                 font-weight: bold;
+                 margin-right: 3pt;
              }
 
-            /* --- Yazdırmada Cevap Anahtarı --- */
-            #answer-key {
-                margin-top: 5mm; /* Sütunlardan sonraki boşluk */
+            .answer-key-section {
+                page-break-before: avoid; /* Cevap anahtarını mümkünse önceki sayfada tut */
+                margin-top: 5mm; /* Cevap anahtarı üst boşluğu azaltıldı */
+                border-top: 1px solid #000; /* Daha belirgin ayraç */
                 padding-top: 3mm;
-                border-top: 1px solid #aaa;
              }
-             #answer-key h2 {
-                font-size: 10pt;
-                margin-bottom: 2mm;
+
+            .answer-key-title {
+                 font-size: 10pt; /* Başlık küçültüldü */
+                 text-align: left; /* Sola yasla */
+                 margin-bottom: 2mm;
              }
-             #answer-key ul {
-                column-count: 6; /* Daha fazla sütun */
-                column-gap: 8pt;
-                font-size: 8.5pt;
-                max-width: 100%; /* Tam genişliğe yayılsın */
+
+             .answer-key-list {
+                column-count: 10; /* Çok sayıda sütun */
+                column-gap: 8pt; /* Sütun aralığı azaltıldı */
              }
-             #answer-key li {
-                text-align: left; /* Solda hizala */
-                 margin-bottom: 1pt;
+
+             .answer-key-list li {
+                 font-size: 8pt; /* Cevap anahtarı fontu küçültüldü */
+                 margin-bottom: 1mm; /* Boşluk azaltıldı */
+                 line-height: 1.1; /* Daha sıkışık */
              }
-        }
+
+             /* Ekran için olan elemanları gizle */
+             hr { display: none; }
+
+        } /* @media print sonu */
 
     </style>
 </head>
 <body>
     <div class="booklet-container">
-
-        <div class="test-header">
-            <div class="info-left">
-                <p><strong>Ders:</strong> Mikrobiyoloji ve İmmünoloji</p>
-                <p><strong>Konu:</strong> TUS Tekrar Testi</p>
-                <p><strong>Ad Soyad:</strong> ..................................................</p>
-            </div>
-            <div class="info-right">
-                <p><strong>Tarih:</strong> ..... / ..... / ........</p>
-                <p><strong>Numara:</strong> ......................</p>
-                <p><strong>Puan:</strong> .............</p>
-            </div>
-        </div>
-
-        <h1>TUS Düzeyi Mikrobiyoloji ve İmmünoloji Yaprak Testi</h1>
+        <div class="page-title">TUS Düzeyi Mikrobiyoloji ve İmmünoloji Soru Kitapçığı</div>
+        <p class="instructions">Toplam 20 Soru. Her soru için yalnızca bir doğru cevap vardır.</p>
 
         <ol class="question-list">
-            <li>
-                <span class="question-stem">Genç, cinsel olarak aktif bir kadında idrar yolu enfeksiyonuna neden olan, tipik olarak koagülaz negatif olan *Staphylococcus* türü aşağıdakilerden hangisidir?</span>
+            <li class="question-item">
+                <span class="question-number"></span><span class="question-stem">Genç, cinsel olarak aktif bir kadında idrar yolu enfeksiyonuna neden olan, tipik olarak koagülaz negatif olan *Staphylococcus* türü aşağıdakilerden hangisidir?</span>
                 <div class="options">
-                    <div data-option="A">*Staphylococcus aureus*</div>
-                    <div data-option="B">*Staphylococcus epidermidis*</div>
-                    <div data-option="C">*Staphylococcus saprophyticus*</div>
-                    <div data-option="D">*Staphylococcus lugdunensis*</div>
-                    <div data-option="E">*Staphylococcus haemolyticus*</div>
+                    <div><span class="option-letter">A)</span> *Staphylococcus aureus*</div>
+                    <div><span class="option-letter">B)</span> *Staphylococcus epidermidis*</div>
+                    <div><span class="option-letter">C)</span> *Staphylococcus saprophyticus*</div>
+                    <div><span class="option-letter">D)</span> *Staphylococcus lugdunensis*</div>
+                    <div><span class="option-letter">E)</span> *Staphylococcus haemolyticus*</div>
                 </div>
             </li>
 
-            <li>
-                <span class="question-stem">Akut romatizmal ateş, aşağıdaki mikroorganizmaların hangisiyle geçirilen farenjit sonrası gelişebilen non-süpüratif bir komplikasyondur?</span>
+            <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">Akut romatizmal ateş, aşağıdaki mikroorganizmaların hangisiyle geçirilen farenjit sonrası gelişebilen non-süpüratif bir komplikasyondur?</span>
                 <div class="options">
-                    <div data-option="A">*Streptococcus agalactiae* (Grup B)</div>
-                    <div data-option="B">*Streptococcus pneumoniae*</div>
-                    <div data-option="C">*Streptococcus pyogenes* (Grup A)</div>
-                    <div data-option="D">*Enterococcus faecalis*</div>
-                    <div data-option="E">*Staphylococcus aureus*</div>
+                    <div><span class="option-letter">A)</span> *Streptococcus agalactiae* (Grup B)</div>
+                    <div><span class="option-letter">B)</span> *Streptococcus pneumoniae*</div>
+                    <div><span class="option-letter">C)</span> *Streptococcus pyogenes* (Grup A)</div>
+                    <div><span class="option-letter">D)</span> *Enterococcus faecalis*</div>
+                    <div><span class="option-letter">E)</span> *Staphylococcus aureus*</div>
                 </div>
             </li>
 
-             <li>
-                <span class="question-stem">*Mycobacterium tuberculosis*'in klinik örneklerde mikroskobik olarak saptanması için en sık kullanılan boyama yöntemi aşağıdakilerden hangisidir?</span>
-                <div class="options">
-                    <div data-option="A">Gram boyama</div>
-                    <div data-option="B">Giemsa boyama</div>
-                    <div data-option="C">Ziehl-Neelsen boyama</div>
-                    <div data-option="D">Çini mürekkebi</div>
-                    <div data-option="E">Gümüşleme</div>
+             <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">*Mycobacterium tuberculosis*'in klinik örneklerde mikroskobik olarak saptanması için en sık kullanılan boyama yöntemi aşağıdakilerden hangisidir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> Gram boyama</div>
+                    <div><span class="option-letter">B)</span> Giemsa boyama</div>
+                    <div><span class="option-letter">C)</span> Ziehl-Neelsen boyama</div>
+                    <div><span class="option-letter">D)</span> Çini mürekkebi</div>
+                    <div><span class="option-letter">E)</span> Gümüşleme</div>
                 </div>
             </li>
 
-             <li>
-                <span class="question-stem">İdrar kültüründen izole edilen bir bakteri Gram negatif basil, oksidaz negatif, MacConkey agarda laktozu fermente ediyor ve indol pozitiftir. En olası etken aşağıdakilerden hangisidir?</span>
-                <div class="options">
-                    <div data-option="A">*Klebsiella pneumoniae*</div>
-                    <div data-option="B">*Proteus mirabilis*</div>
-                    <div data-option="C">*Pseudomonas aeruginosa*</div>
-                    <div data-option="D">*Escherichia coli*</div>
-                    <div data-option="E">*Salmonella enterica*</div>
+             <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">İdrar kültüründen izole edilen bir bakteri Gram negatif basil, oksidaz negatif, MacConkey agarda laktozu fermente ediyor ve indol pozitiftir. En olası etken aşağıdakilerden hangisidir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> *Klebsiella pneumoniae*</div>
+                    <div><span class="option-letter">B)</span> *Proteus mirabilis*</div>
+                    <div><span class="option-letter">C)</span> *Pseudomonas aeruginosa*</div>
+                    <div><span class="option-letter">D)</span> *Escherichia coli*</div>
+                    <div><span class="option-letter">E)</span> *Salmonella enterica*</div>
                 </div>
             </li>
 
-             <li>
-                <span class="question-stem">Mide ülserleri ve gastrik adenokarsinom ile ilişkili olan, güçlü üreaz aktivitesine sahip Gram negatif kıvrık basil aşağıdakilerden hangisidir?</span>
-                <div class="options">
-                    <div data-option="A">*Vibrio cholerae*</div>
-                    <div data-option="B">*Campylobacter jejuni*</div>
-                    <div data-option="C">*Helicobacter pylori*</div>
-                    <div data-option="D">*Pseudomonas aeruginosa*</div>
-                    <div data-option="E">*Brucella melitensis*</div>
+             <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">Mide ülserleri ve gastrik adenokarsinom ile ilişkili olan, güçlü üreaz aktivitesine sahip Gram negatif kıvrık basil aşağıdakilerden hangisidir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> *Vibrio cholerae*</div>
+                    <div><span class="option-letter">B)</span> *Campylobacter jejuni*</div>
+                    <div><span class="option-letter">C)</span> *Helicobacter pylori*</div>
+                    <div><span class="option-letter">D)</span> *Pseudomonas aeruginosa*</div>
+                    <div><span class="option-letter">E)</span> *Brucella melitensis*</div>
                 </div>
             </li>
 
-             <li>
-                <span class="question-stem">Klindamisin tedavisi sonrası şiddetli ishal, karın ağrısı ve ateş gelişen bir hastanın endoskopisinde psödomembranlar görülüyor. En olası etken mikroorganizma hangisidir?</span>
-                <div class="options">
-                    <div data-option="A">*Clostridium perfringens*</div>
-                    <div data-option="B">*Bacteroides fragilis*</div>
-                    <div data-option="C">*Clostridium difficile* (yeni adı *Clostridioides difficile*)</div>
-                    <div data-option="D">*Campylobacter jejuni*</div>
-                    <div data-option="E">*Vibrio cholerae*</div>
+             <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">Klindamisin tedavisi sonrası şiddetli ishal, karın ağrısı ve ateş gelişen bir hastanın endoskopisinde psödomembranlar görülüyor. En olası etken mikroorganizma hangisidir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> *Clostridium perfringens*</div>
+                    <div><span class="option-letter">B)</span> *Bacteroides fragilis*</div>
+                    <div><span class="option-letter">C)</span> *Clostridium difficile* (yeni adı *Clostridioides difficile*)</div>
+                    <div><span class="option-letter">D)</span> *Campylobacter jejuni*</div>
+                    <div><span class="option-letter">E)</span> *Vibrio cholerae*</div>
                 </div>
             </li>
 
-             <li>
-                <span class="question-stem">Aşağıdaki immünoglobulin izotiplerinden hangisi özellikle mukozal salgılarda (tükürük, gözyaşı, süt, GIS salgıları) bulunur ve mukozal immünitede kilit rol oynar?</span>
-                <div class="options">
-                    <div data-option="A">IgG</div>
-                    <div data-option="B">IgM</div>
-                    <div data-option="C">IgA</div>
-                    <div data-option="D">IgE</div>
-                    <div data-option="E">IgD</div>
+             <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">Aşağıdaki immünoglobulin izotiplerinden hangisi özellikle mukozal salgılarda (tükürük, gözyaşı, süt, GIS salgıları) bulunur ve mukozal immünitede kilit rol oynar?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> IgG</div>
+                    <div><span class="option-letter">B)</span> IgM</div>
+                    <div><span class="option-letter">C)</span> IgA</div>
+                    <div><span class="option-letter">D)</span> IgE</div>
+                    <div><span class="option-letter">E)</span> IgD</div>
                 </div>
             </li>
 
-             <li>
-                <span class="question-stem">Antijenlerin CD4+ T yardımcı hücrelere sunulabilmesi için işlenmesi ve aşağıdaki moleküllerden hangisi üzerinde sunulması gerekir?</span>
-                <div class="options">
-                    <div data-option="A">MHC Sınıf I</div>
-                    <div data-option="B">MHC Sınıf II</div>
-                    <div data-option="C">CD1</div>
-                    <div data-option="D">TLR4</div>
-                    <div data-option="E">B7</div>
+             <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">Antijenlerin CD4+ T yardımcı hücrelere sunulabilmesi için işlenmesi ve aşağıdaki moleküllerden hangisi üzerinde sunulması gerekir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> MHC Sınıf I</div>
+                    <div><span class="option-letter">B)</span> MHC Sınıf II</div>
+                    <div><span class="option-letter">C)</span> CD1</div>
+                    <div><span class="option-letter">D)</span> TLR4</div>
+                    <div><span class="option-letter">E)</span> B7</div>
                 </div>
             </li>
 
-            <li>
-                <span class="question-stem">Isıya duyarlı tıbbi malzemelerin (örneğin bazı plastikler, endoskoplar) sterilizasyonunda aşağıdaki yöntemlerden hangisi tercih edilir?</span>
-                <div class="options">
-                    <div data-option="A">Otoklav (Basınçlı buhar)</div>
-                    <div data-option="B">Kuru ısı (Pastör fırını)</div>
-                    <div data-option="C">Etilen oksit gazı</div>
-                    <div data-option="D">Kaynatma</div>
-                    <div data-option="E">Pastörizasyon</div>
+            <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">Isıya duyarlı tıbbi malzemelerin (örneğin bazı plastikler, endoskoplar) sterilizasyonunda aşağıdaki yöntemlerden hangisi tercih edilir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> Otoklav (Basınçlı buhar)</div>
+                    <div><span class="option-letter">B)</span> Kuru ısı (Pastör fırını)</div>
+                    <div><span class="option-letter">C)</span> Etilen oksit gazı</div>
+                    <div><span class="option-letter">D)</span> Kaynatma</div>
+                    <div><span class="option-letter">E)</span> Pastörizasyon</div>
                 </div>
             </li>
 
-             <li>
-                <span class="question-stem">Üç gün süren yüksek ateşin ani düşmesini takiben önce gövdede başlayan makülopapüler döküntü ile karakterize, genellikle 6 ay - 2 yaş arası çocuklarda görülen hastalığın ( altıncı hastalık, roseola infantum) etkeni olan virüs aşağıdakilerden hangisidir?</span>
-                <div class="options">
-                    <div data-option="A">Kızamık virüsü</div>
-                    <div data-option="B">Rubella virüsü</div>
-                    <div data-option="C">Varicella-zoster virüsü</div>
-                    <div data-option="D">Parvovirüs B19</div>
-                    <div data-option="E">İnsan Herpesvirüs 6 (HHV-6)</div>
+             <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">Üç gün süren yüksek ateşin ani düşmesini takiben önce gövdede başlayan makülopapüler döküntü ile karakterize, genellikle 6 ay - 2 yaş arası çocuklarda görülen hastalığın ( altıncı hastalık, roseola infantum) etkeni olan virüs aşağıdakilerden hangisidir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> Kızamık virüsü</div>
+                    <div><span class="option-letter">B)</span> Rubella virüsü</div>
+                    <div><span class="option-letter">C)</span> Varicella-zoster virüsü</div>
+                    <div><span class="option-letter">D)</span> Parvovirüs B19</div>
+                    <div><span class="option-letter">E)</span> İnsan Herpesvirüs 6 (HHV-6)</div>
                 </div>
             </li>
 
-            <li>
-                <span class="question-stem">İnsan bağırsağında bulunan normal flora üyelerinin konağa sağladığı en önemli faydalardan biri aşağıdakilerden hangisidir?</span>
-                <div class="options">
-                    <div data-option="A">Patojen bakterilerin kolonizasyonunu önlemek (kolonizasyon direnci)</div>
-                    <div data-option="B">İnorganik maddeleri organik maddelere çevirmek</div>
-                    <div data-option="C">İnsan için esansiyel olan tüm amino asitleri sentezlemek</div>
-                    <div data-option="D">Konak hücreleri için enerji üretmek (ATP sentezi)</div>
-                    <div data-option="E">Ağır metalleri detoksifiye etmek</div>
+            <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">İnsan bağırsağında bulunan normal flora üyelerinin konağa sağladığı en önemli faydalardan biri aşağıdakilerden hangisidir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> Patojen bakterilerin kolonizasyonunu önlemek (kolonizasyon direnci)</div>
+                    <div><span class="option-letter">B)</span> İnorganik maddeleri organik maddelere çevirmek</div>
+                    <div><span class="option-letter">C)</span> İnsan için esansiyel olan tüm amino asitleri sentezlemek</div>
+                    <div><span class="option-letter">D)</span> Konak hücreleri için enerji üretmek (ATP sentezi)</div>
+                    <div><span class="option-letter">E)</span> Ağır metalleri detoksifiye etmek</div>
                 </div>
             </li>
 
-            <li>
-                <span class="question-stem">Gram boyama yönteminde Gram pozitif ve Gram negatif bakteriler arasındaki temel farkı yaratan yapı aşağıdakilerden hangisidir?</span>
-                <div class="options">
-                    <div data-option="A">Hücre membranı</div>
-                    <div data-option="B">Kapsül</div>
-                    <div data-option="C">Peptidoglikan tabakası (Hücre duvarı)</div>
-                    <div data-option="D">Ribozomlar</div>
-                    <div data-option="E">Pili</div>
+            <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">Gram boyama yönteminde Gram pozitif ve Gram negatif bakteriler arasındaki temel farkı yaratan yapı aşağıdakilerden hangisidir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> Hücre membranı</div>
+                    <div><span class="option-letter">B)</span> Kapsül</div>
+                    <div><span class="option-letter">C)</span> Peptidoglikan tabakası (Hücre duvarı)</div>
+                    <div><span class="option-letter">D)</span> Ribozomlar</div>
+                    <div><span class="option-letter">E)</span> Pili</div>
                 </div>
             </li>
 
-            <li>
-                <span class="question-stem">Gebelerde düşüklere, yenidoğanlarda menenjite neden olabilen, buzdolabı sıcaklığında (4°C) üreyebilen ve hücreden hücreye aktin filamentlerini kullanarak hareket edebilen Gram pozitif basil aşağıdakilerden hangisidir?</span>
-                <div class="options">
-                    <div data-option="A">*Bacillus anthracis*</div>
-                    <div data-option="B">*Corynebacterium diphtheriae*</div>
-                    <div data-option="C">*Clostridium tetani*</div>
-                    <div data-option="D">*Listeria monocytogenes*</div>
-                    <div data-option="E">*Bacillus cereus*</div>
+            <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">Gebelerde düşüklere, yenidoğanlarda menenjite neden olabilen, buzdolabı sıcaklığında (4°C) üreyebilen ve hücreden hücreye aktin filamentlerini kullanarak hareket edebilen Gram pozitif basil aşağıdakilerden hangisidir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> *Bacillus anthracis*</div>
+                    <div><span class="option-letter">B)</span> *Corynebacterium diphtheriae*</div>
+                    <div><span class="option-letter">C)</span> *Clostridium tetani*</div>
+                    <div><span class="option-letter">D)</span> *Listeria monocytogenes*</div>
+                    <div><span class="option-letter">E)</span> *Bacillus cereus*</div>
                 </div>
             </li>
 
-            <li>
-                <span class="question-stem">Ani başlayan ateş, baş ağrısı, ense sertliği ve peteşiyal döküntülerle seyreden fulminan meningokoksemi (Waterhouse-Friderichsen sendromu) tablosuna yol açabilen mikroorganizmanın en önemli virülans faktörü aşağıdakilerden hangisidir?</span>
-                <div class="options">
-                    <div data-option="A">Pili</div>
-                    <div data-option="B">IgA proteaz</div>
-                    <div data-option="C">Endotoksin (LPS)</div>
-                    <div data-option="D">Polisakkarit kapsül</div>
-                    <div data-option="E">Demir bağlayan proteinler</div>
+            <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">Ani başlayan ateş, baş ağrısı, ense sertliği ve peteşiyal döküntülerle seyreden fulminan meningokoksemi (Waterhouse-Friderichsen sendromu) tablosuna yol açabilen mikroorganizmanın en önemli virülans faktörü aşağıdakilerden hangisidir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> Pili</div>
+                    <div><span class="option-letter">B)</span> IgA proteaz</div>
+                    <div><span class="option-letter">C)</span> Endotoksin (LPS)</div>
+                    <div><span class="option-letter">D)</span> Polisakkarit kapsül</div>
+                    <div><span class="option-letter">E)</span> Demir bağlayan proteinler</div>
                 </div>
             </li>
 
-            <li>
-                <span class="question-stem">Hastane kaynaklı enfeksiyonların önemli bir etkeni olan, özellikle yanık hastaları ve kistik fibrozisli hastalarda ciddi enfeksiyonlara yol açabilen, mavi-yeşil pigment (piyosiyanin) üretebilen ve oksidaz pozitif olan Gram negatif basil aşağıdakilerden hangisidir?</span>
-                <div class="options">
-                    <div data-option="A">*Acinetobacter baumannii*</div>
-                    <div data-option="B">*Stenotrophomonas maltophilia*</div>
-                    <div data-option="C">*Escherichia coli*</div>
-                    <div data-option="D">*Klebsiella pneumoniae*</div>
-                    <div data-option="E">*Pseudomonas aeruginosa*</div>
+            <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">Hastane kaynaklı enfeksiyonların önemli bir etkeni olan, özellikle yanık hastaları ve kistik fibrozisli hastalarda ciddi enfeksiyonlara yol açabilen, mavi-yeşil pigment (piyosiyanin) üretebilen ve oksidaz pozitif olan Gram negatif basil aşağıdakilerden hangisidir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> *Acinetobacter baumannii*</div>
+                    <div><span class="option-letter">B)</span> *Stenotrophomonas maltophilia*</div>
+                    <div><span class="option-letter">C)</span> *Escherichia coli*</div>
+                    <div><span class="option-letter">D)</span> *Klebsiella pneumoniae*</div>
+                    <div><span class="option-letter">E)</span> *Pseudomonas aeruginosa*</div>
                 </div>
             </li>
 
-            <li>
-                <span class="question-stem">Çikolata agarda üreyebilen ancak kanlı agarda üreyemeyen, üremesi için X faktörü (hemin) ve V faktörüne (NAD) ihtiyaç duyan Gram negatif kokobasil aşağıdakilerden hangisidir?</span>
-                <div class="options">
-                    <div data-option="A">*Bordetella pertussis*</div>
-                    <div data-option="B">*Brucella abortus*</div>
-                    <div data-option="C">*Francisella tularensis*</div>
-                    <div data-option="D">*Haemophilus influenzae*</div>
-                    <div data-option="E">*Pasteurella multocida*</div>
+            <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">Çikolata agarda üreyebilen ancak kanlı agarda üreyemeyen, üremesi için X faktörü (hemin) ve V faktörüne (NAD) ihtiyaç duyan Gram negatif kokobasil aşağıdakilerden hangisidir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> *Bordetella pertussis*</div>
+                    <div><span class="option-letter">B)</span> *Brucella abortus*</div>
+                    <div><span class="option-letter">C)</span> *Francisella tularensis*</div>
+                    <div><span class="option-letter">D)</span> *Haemophilus influenzae*</div>
+                    <div><span class="option-letter">E)</span> *Pasteurella multocida*</div>
                 </div>
             </li>
 
-            <li>
-                <span class="question-stem">*Ixodes* cinsi kenelerin ısırmasıyla bulaşan, başlangıçta tipik olarak "eritema migrans" adı verilen hedef tahtası şeklinde deri döküntüsüne, ilerleyen dönemlerde ise nörolojik, kardiyak ve eklem bulgularına yol açabilen spiroket aşağıdakilerden hangisidir?</span>
-                <div class="options">
-                    <div data-option="A">*Treponema pallidum*</div>
-                    <div data-option="B">*Leptospira interrogans*</div>
-                    <div data-option="C">*Borrelia recurrentis*</div>
-                    <div data-option="D">*Borrelia burgdorferi*</div>
-                    <div data-option="E">*Spirillum minus*</div>
+            <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">*Ixodes* cinsi kenelerin ısırmasıyla bulaşan, başlangıçta tipik olarak "eritema migrans" adı verilen hedef tahtası şeklinde deri döküntüsüne, ilerleyen dönemlerde ise nörolojik, kardiyak ve eklem bulgularına yol açabilen spiroket aşağıdakilerden hangisidir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> *Treponema pallidum*</div>
+                    <div><span class="option-letter">B)</span> *Leptospira interrogans*</div>
+                    <div><span class="option-letter">C)</span> *Borrelia recurrentis*</div>
+                    <div><span class="option-letter">D)</span> *Borrelia burgdorferi*</div>
+                    <div><span class="option-letter">E)</span> *Spirillum minus*</div>
                 </div>
             </li>
 
-            <li>
-                <span class="question-stem">T lenfositlerinin farklılaşma ve olgunlaşma sürecini tamamladığı primer (birincil) lenfoid organ aşağıdakilerden hangisidir?</span>
-                <div class="options">
-                    <div data-option="A">Kemik iliği</div>
-                    <div data-option="B">Dalak</div>
-                    <div data-option="C">Lenf düğümleri</div>
-                    <div data-option="D">Timus</div>
-                    <div data-option="E">Peyer plakları</div>
+            <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">T lenfositlerinin farklılaşma ve olgunlaşma sürecini tamamladığı primer (birincil) lenfoid organ aşağıdakilerden hangisidir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> Kemik iliği</div>
+                    <div><span class="option-letter">B)</span> Dalak</div>
+                    <div><span class="option-letter">C)</span> Lenf düğümleri</div>
+                    <div><span class="option-letter">D)</span> Timus</div>
+                    <div><span class="option-letter">E)</span> Peyer plakları</div>
                 </div>
             </li>
 
-            <li>
-                <span class="question-stem">Kompleman sisteminin klasik yolunu aktive eden en güçlü tetikleyici aşağıdakilerden hangisidir?</span>
-                <div class="options">
-                    <div data-option="A">Bakteriyel lipopolisakkarit (LPS)</div>
-                    <div data-option="B">Antijene bağlanmış IgM veya IgG antikorları</div>
-                    <div data-option="C">Mannoz bağlayan lektin (MBL)</div>
-                    <div data-option="D">Virüsle enfekte hücre yüzeyleri</div>
-                    <div data-option="E">Maya hücre duvarı (Zimosan)</div>
+            <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">Kompleman sisteminin klasik yolunu aktive eden en güçlü tetikleyici aşağıdakilerden hangisidir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> Bakteriyel lipopolisakkarit (LPS)</div>
+                    <div><span class="option-letter">B)</span> Antijene bağlanmış IgM veya IgG antikorları</div>
+                    <div><span class="option-letter">C)</span> Mannoz bağlayan lektin (MBL)</div>
+                    <div><span class="option-letter">D)</span> Virüsle enfekte hücre yüzeyleri</div>
+                    <div><span class="option-letter">E)</span> Maya hücre duvarı (Zimosan)</div>
                 </div>
             </li>
 
-            <li>
-                <span class="question-stem">Aşağıdaki virüslerden hangisi diğerlerinden farklı olarak RNA genomuna sahiptir?</span>
-                <div class="options">
-                    <div data-option="A">Herpes Simplex Virüsü (HSV)</div>
-                    <div data-option="B">Varicella-Zoster Virüsü (VZV)</div>
-                    <div data-option="C">İnfluenza Virüsü</div>
-                    <div data-option="D">Adenovirüs</div>
-                    <div data-option="E">Papillomavirüs (HPV)</div>
+            <li class="question-item">
+                 <span class="question-number"></span><span class="question-stem">Aşağıdaki virüslerden hangisi diğerlerinden farklı olarak RNA genomuna sahiptir?</span>
+                 <div class="options">
+                    <div><span class="option-letter">A)</span> Herpes Simplex Virüsü (HSV)</div>
+                    <div><span class="option-letter">B)</span> Varicella-Zoster Virüsü (VZV)</div>
+                    <div><span class="option-letter">C)</span> İnfluenza Virüsü</div>
+                    <div><span class="option-letter">D)</span> Adenovirüs</div>
+                    <div><span class="option-letter">E)</span> Papillomavirüs (HPV)</div>
                 </div>
             </li>
-
         </ol>
 
-        <div id="answer-key">
-            <h2>Cevap Anahtarı</h2>
-            <ul>
-                <li> 1 - C</li><li> 2 - C</li><li> 3 - C</li><li> 4 - D</li><li> 5 - C</li>
-                <li> 6 - C</li><li> 7 - C</li><li> 8 - B</li><li> 9 - C</li><li>10 - E</li>
-                <li>11 - A</li><li>12 - C</li><li>13 - D</li><li>14 - D</li><li>15 - E</li>
-                <li>16 - D</li><li>17 - D</li><li>18 - D</li><li>19 - B</li><li>20 - C</li>
+        <div class="answer-key-section">
+            <div class="answer-key-title">Cevap Anahtarı</div>
+            <ul class="answer-key-list">
+                <li>1. C</li>
+                <li>2. C</li>
+                <li>3. C</li>
+                <li>4. D</li>
+                <li>5. C</li>
+                <li>6. C</li>
+                <li>7. C</li>
+                <li>8. B</li>
+                <li>9. C</li>
+                <li>10. E</li>
+                <li>11. A</li>
+                <li>12. C</li>
+                <li>13. D</li>
+                <li>14. D</li>
+                <li>15. E</li>
+                <li>16. D</li>
+                <li>17. D</li>
+                <li>18. D</li>
+                <li>19. B</li>
+                <li>20. C</li>
             </ul>
         </div>
 
